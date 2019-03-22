@@ -1,0 +1,274 @@
+/*
+font-family: 'Comfortaa', cursive;
+*/
+
+/*
+Global Selectors
+*/
+
+body {
+    /* background-image: url("../images/tim-mossholder-694763-unsplash.jpg"); */
+    /* background-size: cover; */
+    background: tan;
+    font-family: 'Comfortaa', cursive;
+    /* height: 568px; */
+    /* max-height: 568px; */
+    width: 320px;
+    max-width: 320px;
+    margin: auto;
+    /* border: 1px solid black; */
+}
+
+/* .bg-color {
+    background: tan;
+    height: 566px;
+} */
+
+.hidden {
+    visibility: hidden;
+}
+
+#player-name,
+.longest-chain,
+.chain-number,
+.scoreboard,
+.scoreboard-panel 
+    {
+    border: 1px solid black;
+}
+
+/*
+Primary Game Screen Selectors
+*/
+
+.score {
+    letter-spacing: 1px;
+    padding-right: 18px;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+.top-block {
+    background: darkred;
+    border: 1px solid black;
+    border-bottom-style: none;
+    height: 100px;
+    width: 100px;
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+.right-block {
+    background: orangered;
+    border: 1px solid black;
+    border-left-style: none;
+    height: 100px;
+    width: 100px;
+    border-bottom-right-radius: 9px;
+    border-top-right-radius: 9px;
+}
+
+.bottom-block {
+    background: darkgreen;
+    border: 1px solid black;
+    border-top-style: none;
+    height: 100px;
+    width: 100px;
+    border-bottom-right-radius: 9px;
+    border-bottom-left-radius: 9px;
+}
+
+.left-block {
+    background: darkblue;
+    border: 1px solid black;
+    border-right-style: none;
+    height: 100px;
+    width: 100px;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+}
+
+.center-block {
+    background: goldenrod;
+    border: 1px solid black;
+    height: 100px;
+    width: 100px;
+}
+
+.title-block {
+    letter-spacing: 6px;
+    line-height: 1.25;
+    font-size: 250%;
+    background: green;
+    border: 1px solid black;
+    height: 100px;
+    width: 300px;
+    padding-left: 10px;
+    padding-right: 5px;
+    margin-bottom: 25px;
+    border-top-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.longest-chain {
+    letter-spacing: 3px;
+    font-size: 150%;
+    background: steelblue;
+    height: 40px;
+    width: 300px;
+    border-top-left-radius: 25px;
+}
+
+.chain-number {
+    letter-spacing: 1px;
+    font-size: 150%;
+    background: whitesmoke;
+    height: 40px;
+    width: 50px;
+}
+
+/*
+Scoreboard Screen Selectors
+*/
+
+.scoreboard-panel {
+    background: cornflowerblue;
+    height: 489px;
+    width: 300px;
+    border-top-left-radius: 25px;
+}
+
+.ranked {
+    font-weight: bold;
+    height: 44.5px;
+    width: 298px;
+}
+
+.ranked:nth-child(even) {
+    background: whitesmoke;
+}
+
+.scoreboard {
+    letter-spacing: 3px;
+    font-size: 150%;
+    background: lightblue;
+    height: 40px;
+    width: 300px;
+    border-bottom-right-radius: 25px;
+}
+
+#sbx {
+    font-weight: bold;
+}
+
+/*
+Welcome/Turtorial Screen Selectors
+*/
+
+#tutorial-title {
+    letter-spacing: 6px;
+}
+
+.tut-top-block {
+    background: darkred;
+    border: 1px solid black;
+    border-bottom-style: none;
+    height: 50px;
+    width: 50px;
+    border-top-left-radius: 4.5px;
+    border-top-right-radius: 4.5px;
+}
+
+.tut-right-block {
+    background: orangered;
+    border: 1px solid black;
+    border-left-style: none;
+    height: 50px;
+    width: 50px;
+    border-bottom-right-radius: 4.5px;
+    border-top-right-radius: 4.5px;
+}
+
+.tut-bottom-block {
+    background: darkgreen;
+    border: 1px solid black;
+    border-top-style: none;
+    height: 50px;
+    width: 50px;
+    border-bottom-right-radius: 4.5px;
+    border-bottom-left-radius: 4.5px;
+}
+
+.tut-left-block {
+    background: darkblue;
+    border: 1px solid black;
+    border-right-style: none;
+    height: 50px;
+    width: 50px;
+    border-top-left-radius: 4.5px;
+    border-bottom-left-radius: 4.5px;
+}
+
+.tut-center-block {
+    background: goldenrod;
+    border: 1px solid black;
+    height: 50px;
+    width: 50px;
+}
+
+.tut-title-block {
+    font-size: 150%;
+    background: green;
+    border: 1px solid black;
+    height: 50px;
+    width: 150px;
+    border-top-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+.tutorial-box {
+    font-size: 150%;
+    background: whitesmoke;
+    border: 1px solid black;
+    height: 120px;
+    width: 300px;
+    border-radius: 16px;
+}
+
+.label-input, .bottom-panel {
+    width: 300px;
+}
+
+.name-label {
+    font-size: 85%;
+}
+
+.name-input {
+    display: block;
+    overflow: hidden;
+}
+
+#go-btn {
+    border: 1px solid black;
+    background: green;
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+#player-name {
+    background: whitesmoke;
+    width: 100%
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

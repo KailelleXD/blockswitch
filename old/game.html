@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- Bootstrap Link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700" rel="stylesheet">
+
+    <!-- CSS Reset and Stylesheet -->
+    <link rel="stylesheet" type="text.css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    <script src="assets/javascript/game.js">
+    </script>
+
+</head>
+
+<body>
+<div class="bg-color">
+    <section id="score-section">
+        <div class="d-flex justify-content-end">
+            <p class="score">00000</p>
+        </div>
+    </section>
+
+    <section id="top-section">
+        <div class="title-block mx-auto">
+            <div class="block-title d-flex justify-content-start">block</div>
+            <div class="switch-title d-flex justify-content-end">switch</div>
+        </div>
+
+    </section>
+
+    <section id="cross-section">
+        <div class="container">
+
+            <div class="row d-flex justify-content-center">
+                <div class="top-block"></div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+                <div class="left-block"></div>
+                <div class="center-block"></div>
+                <div class="right-block"></div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+                <div class="bottom-block mb-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bottom-section">
+        <div class="bottom-panel mx-auto">
+            <div class="long-chain-wrapper d-flex justify-content-center">
+                <div class="longest-chain d-flex align-items-center justify-content-center pt-1">Longest Chain</div>
+                <div class="chain-number d-flex align-items-center justify-content-center pt-2">00</div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <p class="scoreboard d-flex align-items-center justify-content-center">scoreboard [&nbsp;<span id="sbx" class="hidden pt-1">X</span>&nbsp;]</p>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+
+</html>
