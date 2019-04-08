@@ -1,29 +1,32 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
-import { Grid, Col, Row } from "react-native-easy-grid";
 import Block from "./Block";
 
 export default class Cross extends Component {
   render() {
     return (
       <View>
-        <Row size={33}>
-        <Block color={styles.darkRed} />
-        </Row>
-        <Row size={33}>
-          <Block color={styles.darkBlue} />
-          <Block color={styles.goldenRod} />
-          <Block color={styles.orangeRed} />
-        </Row>
-        <Row size={33}>
-            <Block color={styles.darkGreen} />
-        </Row>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Block border={true} color={styles.darkRed} />
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+            <Block border={true} color={styles.darkBlue} />
+            <Block border={false} color={styles.goldenRod} />
+            <Block border={true} color={styles.orangeRed} />
+          </View>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Block border={true} color={styles.darkGreen} />
+          </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  center: {
+    alignItems: "center",
+    justifyContent: "flex-start"
+  },
   darkRed: {
     backgroundColor: "#8B0000"
   },
