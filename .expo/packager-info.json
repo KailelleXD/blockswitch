@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "packagerPort": null,
-  "packagerPid": null,
+  "packagerPort": 19001,
+  "packagerPid": 11976,
   "expoServerNgrokUrl": "https://uy-ehj.anonymous.blockswitch.exp.direct",
   "packagerNgrokUrl": "https://packager.uy-ehj.anonymous.blockswitch.exp.direct",
-  "ngrokPid": 11560
+  "ngrokPid": 3300
 }

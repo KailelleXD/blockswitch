@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
-
+import { View } from 'react-native'
+import EStyleSheet from 'react-native-extended-stylesheet'
+ 
 export default class Block extends Component {
   render() {
     return (
-      <View>
-        <Text> Block.js </Text>
-      </View>
+      <View style={[styles.blockStyle, this.props.color]} />
     )
   }
 }
 
-const styles = StyleSheet.create({})
+const styles = EStyleSheet.create({
+  blockStyle: {
+    width: '8rem',
+    height: '8rem',
+    borderWidth: 1,
+    borderColor: '#000'
+  }
+})
