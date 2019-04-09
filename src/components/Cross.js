@@ -6,17 +6,42 @@ export default class Cross extends Component {
   render() {
     return (
       <View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Block border={true} color={styles.darkRed} />
-          </View>
-          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-            <Block border={true} color={styles.darkBlue} />
-            <Block border={false} color={styles.goldenRod} />
-            <Block border={true} color={styles.orangeRed} />
-          </View>
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
-            <Block border={true} color={styles.darkGreen} />
-          </View>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Block 
+            border={"T"} 
+            color={styles.darkRed}
+            borderRadius={"T"}
+            />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Block 
+            border={"L"} 
+            color={styles.darkBlue} 
+            borderRadius={"L"}
+            />
+          <Block 
+            border={true} 
+            color={styles.goldenRod} 
+            />
+          <Block 
+            border={"R"} 
+            color={styles.orangeRed}
+            borderRadius={"R"}
+            />
+        </View>
+        <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <Block 
+            border={"B"} 
+            color={styles.darkGreen}
+            borderRadius={"B"}
+            />
+        </View>
       </View>
     );
   }
