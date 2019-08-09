@@ -1,9 +1,9 @@
 {
-    "devToolsPort": 19002,
-    "expoServerPort": 19000,
-    "packagerPort": 19001,
-    "packagerPid": 17360,
-    "expoServerNgrokUrl": "https://uy-ehj.anonymous.blockswitch.exp.direct",
-    "packagerNgrokUrl": "https://packager.uy-ehj.anonymous.blockswitch.exp.direct",
-    "ngrokPid": 7464
-  }
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 3244,
+  "expoServerNgrokUrl": "https://uy-ehj.mrstevenng.blockswitch.exp.direct",
+  "packagerNgrokUrl": "https://packager.uy-ehj.mrstevenng.blockswitch.exp.direct",
+  "ngrokPid": 9676
+}

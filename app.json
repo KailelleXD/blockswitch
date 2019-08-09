@@ -1,29 +1,24 @@
 {
-  "expo": {
-    "name": "blockswitch",
-    "slug": "blockswitch",
-    "privacy": "public",
-    "sdkVersion": "32.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/block-switch.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
+    "expo": {
+        "name": "blockswitch",
+        "slug": "cnw83jfhgt676dksmvnr",
+        "privacy": "unlisted",
+        "sdkVersion": "32.0.0",
+        "platforms": ["ios", "android"],
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "splash": {
+            "image": "./assets/block-switch.png",
+            "resizeMode": "cover",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true
+        }
     }
-  }
 }
