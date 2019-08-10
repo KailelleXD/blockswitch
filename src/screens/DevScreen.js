@@ -92,7 +92,7 @@ const styles = EStyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        userInputHistory: state.devReducer.userInputHistory
+        userInputHistory: state.dev.userInputHistory
     };
 };
 

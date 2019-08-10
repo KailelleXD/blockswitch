@@ -17,7 +17,7 @@ export default class Cross extends Component {
                         onPress={this.handlePress}
                         value={"T"}
                         border={"T"}
-                        color={styles.darkRed}
+                        color={"red"}
                         borderRadius={"T"}
                     />
                 </View>
@@ -32,20 +32,20 @@ export default class Cross extends Component {
                         onPress={this.handlePress}
                         value={"L"}
                         border={"L"}
-                        color={styles.darkBlue}
+                        color={"blue"}
                         borderRadius={"L"}
                     />
                     <Block
                         onPress={this.handlePress}
                         value={"C"}
                         border={true}
-                        color={styles.goldenRod}
+                        color={"yellow"}
                     />
                     <Block
                         onPress={this.handlePress}
                         value={"R"}
                         border={"R"}
-                        color={styles.orangeRed}
+                        color={"orange"}
                         borderRadius={"R"}
                     />
                 </View>
@@ -56,7 +56,7 @@ export default class Cross extends Component {
                         onPress={this.handlePress}
                         value={"B"}
                         border={"B"}
-                        color={styles.darkGreen}
+                        color={"green"}
                         borderRadius={"B"}
                     />
                 </View>
@@ -69,20 +69,5 @@ const styles = StyleSheet.create({
     center: {
         alignItems: "center",
         justifyContent: "flex-start"
-    },
-    darkRed: {
-        backgroundColor: "#8B0000"
-    },
-    darkBlue: {
-        backgroundColor: "#00008B"
-    },
-    goldenRod: {
-        backgroundColor: "#DAA520"
-    },
-    orangeRed: {
-        backgroundColor: "#FF4500"
-    },
-    darkGreen: {
-        backgroundColor: "#006400"
     }
 });
