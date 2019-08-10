@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, TouchableHighlight } from "react-native";
+import { View, TouchableWithoutFeedback } from "react-native";
+import { connect } from "react-redux";
 import EStyleSheet from "react-native-extended-stylesheet";
 
-export default class Block extends Component {
+class Block extends Component {
     constructor(props) {
         super(props);
     }
@@ -12,6 +13,23 @@ export default class Block extends Component {
     };
 
     // STYLE FUNCTIONS ////
+
+    colorType() {
+        const { top, right, bottom, left, center } = this.props.blockState;
+
+        switch (this.props.color) {
+            case "red":
+                return top ? highlight.red : color.red;
+            case "orange":
+                return right ? highlight.orange : color.orange;
+            case "green":
+                return bottom ? highlight.green : color.green;
+            case "blue":
+                return left ? highlight.blue : color.blue;
+            case "yellow":
+                return center ? highlight.yellow : color.yellow;
+        }
+    }
 
     displayBorder() {
         switch (this.props.border) {
@@ -69,22 +87,17 @@ export default class Block extends Component {
 
     render() {
         return (
-            <View>
-                <TouchableHighlight
-                    underlayColor={"rgba(255,255,255,1.0)"}
-                    style={this.borderRadiusPosition()}
-                    onPress={this.handlePress}
-                >
-                    <View
-                        style={[
-                            styles.blockStyle,
-                            this.props.color,
-                            this.displayBorder(),
-                            this.borderRadiusPosition()
-                        ]}
-                    />
-                </TouchableHighlight>
-            </View>
+            <TouchableWithoutFeedback onPress={this.handlePress}>
+                <View
+                    style={[
+                        styles.blockStyle,
+                        // this.props.color,
+                        this.colorType(),
+                        this.displayBorder(),
+                        this.borderRadiusPosition()
+                    ]}
+                />
+            </TouchableWithoutFeedback>
         );
     }
 }
@@ -94,6 +107,53 @@ const styles = EStyleSheet.create({
         margin: 0,
         width: "7rem",
         height: "7rem"
+    }
+});
+
+const color = EStyleSheet.create({
+    red: {
+        //dark-red
+        backgroundColor: "#8B0000"
+    },
+    blue: {
+        //dark-blue
+        backgroundColor: "#00008B"
+    },
+    yellow: {
+        //golden-rod
+        backgroundColor: "#DAA520"
+    },
+    orange: {
+        //orange-red
+        // backgroundColor: "#FF4500"
+        backgroundColor: "#ff8c00"
+    },
+    green: {
+        //dark-green
+        backgroundColor: "#006400"
+    }
+});
+
+const highlight = EStyleSheet.create({
+    red: {
+        //dark-red
+        backgroundColor: "#ff0000"
+    },
+    blue: {
+        //dark-blue
+        backgroundColor: "#0000ff"
+    },
+    yellow: {
+        //golden-rod
+        backgroundColor: "#ffff00"
+    },
+    orange: {
+        //orange-red
+        backgroundColor: "#FFA500"
+    },
+    green: {
+        //dark-green
+        backgroundColor: "#00ff00"
     }
 });
 
@@ -181,3 +241,11 @@ const radius = EStyleSheet.create({
         borderRadius: "1rem"
     }
 });
+
+const mapStateToProps = state => {
+    return {
+        blockState: state.display.blockState
+    };
+};
+
+export default connect(mapStateToProps)(Block);
