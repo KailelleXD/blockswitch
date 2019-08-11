@@ -1,6 +1,6 @@
 import {
     RESET_GAME,
-    ADD_TO_FORWARD_PATTERN_ARRAY,
+    ADD_TO_PATTERN_ARRAY,
     CLEAR_PATTERNS,
     SET_DISPLAY_PATTERN,
     SET_PATTERN_DIRECTION
@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
                 forwardPatternArray: [],
                 reversePatternArray: []
             };
-        case ADD_TO_FORWARD_PATTERN_ARRAY:
+        case ADD_TO_PATTERN_ARRAY:
             // console.log(`ADD_TO_FORWARD_PATTERN_ARRAY reducer called!`);
             const updatedForwardPatternArray = state.patternDirection
                 ? [...state.forwardPatternArray, action.payload]

@@ -9,7 +9,7 @@ import {
     highlightBottomBlock,
     highlightLeftBlock,
     highlightCenterBlock,
-    addToForwardPatternArray,
+    addToPatternArray,
     setDisplayPattern,
     setPatternDirection
 } from "../actions";
@@ -188,19 +188,19 @@ class GameLogicContainer extends Component {
             setTimeout(() => {
                 switch (randomNumber) {
                     case 1:
-                        this.props.addToForwardPatternArray("T");
+                        this.props.addToPatternArray("T");
                         break;
                     case 2:
-                        this.props.addToForwardPatternArray("R");
+                        this.props.addToPatternArray("R");
                         break;
                     case 3:
-                        this.props.addToForwardPatternArray("B");
+                        this.props.addToPatternArray("B");
                         break;
                     case 4:
-                        this.props.addToForwardPatternArray("L");
+                        this.props.addToPatternArray("L");
                         break;
                     case 5:
-                        this.props.addToForwardPatternArray("C");
+                        this.props.addToPatternArray("C");
                         break;
                 }
             }, 1000);
@@ -253,7 +253,7 @@ const mapStateToProps = state => {
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
-        addToForwardPatternArray,
+        addToPatternArray,
         setDisplayPattern,
         setPatternDirection
     } = state;
@@ -272,7 +272,7 @@ const mapStateToProps = state => {
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
-        addToForwardPatternArray,
+        addToPatternArray,
         setDisplayPattern,
         setPatternDirection
     };
@@ -289,7 +289,7 @@ export default connect(
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
-        addToForwardPatternArray,
+        addToPatternArray,
         setDisplayPattern,
         setPatternDirection
     }
