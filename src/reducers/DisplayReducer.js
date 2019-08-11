@@ -7,6 +7,7 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
+    displayConsoleLogs: false, //toggle to display console logs.
     userInputHistory: [],
     blockState: {
         top: false,
@@ -17,34 +18,45 @@ const INITIAL_STATE = {
     }
 };
 
+consoleLogProcess = action => {
+    const displayConsoleLogs = INITIAL_STATE[Object.keys(INITIAL_STATE)[0]];
+    if (displayConsoleLogs) {
+        console.log(
+            `${action.type}: (${
+                action.payload || !action.payload ? action.payload : ""
+            })`
+        );
+    }
+}; //consoleLogProcess(action);
+
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case HIGHLIGHT_TOP_BLOCK:
-            // console.log(`HIGHLIGHT_TOP_BLOCK reducer called!`);
+            consoleLogProcess(action);
             return {
                 ...state,
                 blockState: { ...state.blockState, top: action.payload }
             };
         case HIGHLIGHT_RIGHT_BLOCK:
-            // console.log(`HIGHLIGHT_RIGHT_BLOCK reducer called!`);
+            consoleLogProcess(action);
             return {
                 ...state,
                 blockState: { ...state.blockState, right: action.payload }
             };
         case HIGHLIGHT_BOTTOM_BLOCK:
-            // console.log(`HIGHLIGHT_BOTTOM_BLOCK reducer called!`);
+            consoleLogProcess(action);
             return {
                 ...state,
                 blockState: { ...state.blockState, bottom: action.payload }
             };
         case HIGHLIGHT_LEFT_BLOCK:
-            // console.log(`HIGHLIGHT_LEFT_BLOCK reducer called!`);
+            consoleLogProcess(action);
             return {
                 ...state,
                 blockState: { ...state.blockState, left: action.payload }
             };
         case HIGHLIGHT_CENTER_BLOCK:
-            // console.log(`HIGHLIGHT_CENTER_BLOCK reducer called!`);
+            consoleLogProcess(action);
             return {
                 ...state,
                 blockState: { ...state.blockState, center: action.payload }

@@ -2,7 +2,7 @@ import {
     RESET_GAME,
     ADD_TO_PATTERN_ARRAY,
     CLEAR_PATTERNS,
-    SET_DISPLAY_PATTERN,
+    SET_DISPLAY_PATTERN_ACTIVE,
     SET_PATTERN_DIRECTION
 } from "./types";
 
@@ -32,10 +32,10 @@ export const addToPatternArray = value => {
 };
 
 // SET_DISPLAY_PATTERN ////
-export const setDisplayPattern = bool => {
-    // console.log(`SET_DISPLAY_PATTERN action called! (${bool})`);
+export const setDisplayPatternActive = bool => {
+    // console.log(`SET_DISPLAY_PATTERN_ACTIVE action called! (${bool})`);
     return {
-        type: SET_DISPLAY_PATTERN,
+        type: SET_DISPLAY_PATTERN_ACTIVE,
         payload: bool
     };
 };
