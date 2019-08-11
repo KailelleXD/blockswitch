@@ -1,6 +1,6 @@
 import {
     RESET_GAME,
-    ADD_TO_FORWARD_PATTERN_ARRAY,
+    ADD_TO_PATTERN_ARRAY,
     CLEAR_PATTERNS,
     SET_DISPLAY_PATTERN,
     SET_PATTERN_DIRECTION
@@ -23,10 +23,10 @@ export const clearPatterns = () => {
 };
 
 // ADD_TO_FORWARD_PATTERN_ARRAY ////
-export const addToForwardPatternArray = value => {
-    // console.log(`ADD_TO_FORWARD_PATTERN_ARRAY action called! (${value})`);
+export const addToPatternArray = value => {
+    // console.log(`ADD_TO_PATTERN_ARRAY action called! (${value})`);
     return {
-        type: ADD_TO_FORWARD_PATTERN_ARRAY,
+        type: ADD_TO_PATTERN_ARRAY,
         payload: value
     };
 };
