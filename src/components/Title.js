@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, TouchableWithoutFeedback } from "react-native";
+import { Text, View } from "react-native";
 import { connect } from "react-redux";
 import {
     widthPercentageToDP as wp,
@@ -24,24 +24,10 @@ class Title extends Component {
 
     render() {
         return (
-            <TouchableWithoutFeedback
-                onPress={() => {
-                    this.props.setPatternDirection(
-                        this.props.patternDirection ? false : true
-                    );
-                }}
-            >
-                <View style={[styles.titleStyle, this.patternDirection()]}>
-                    <Text style={[styles.block, styles.textStyle]}>
-                        {" "}
-                        block{" "}
-                    </Text>
-                    <Text style={[styles.switch, styles.textStyle]}>
-                        {" "}
-                        switch{" "}
-                    </Text>
-                </View>
-            </TouchableWithoutFeedback>
+            <View style={[styles.titleStyle, this.patternDirection()]}>
+                <Text style={[styles.block, styles.textStyle]}> block </Text>
+                <Text style={[styles.switch, styles.textStyle]}> switch </Text>
+            </View>
         );
     }
 }

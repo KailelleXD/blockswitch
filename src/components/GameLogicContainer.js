@@ -10,7 +10,8 @@ import {
     highlightLeftBlock,
     highlightCenterBlock,
     addToForwardPatternArray,
-    setDisplayPattern
+    setDisplayPattern,
+    setPatternDirection
 } from "../actions";
 import Cross from "../components/Cross";
 import { ButtonWrapper, Button } from "./common";
@@ -25,7 +26,11 @@ class GameLogicContainer extends Component {
     }
 
     componentDidUpdate() {
-        this.renderPatternToCross(this.props.forwardPatternArray);
+        this.props.patternDirection
+            ? this.renderPatternToCross(this.props.forwardPatternArray)
+            : this.renderPatternToCross(this.props.reversePatternArray);
+        // console.log(`forwardPatternArray:${this.props.forwardPatternArray}`);
+        // console.log(`reversePatternArray:${this.props.reversePatternArray}`);
     }
 
     // function to pass in as props and return type and value from the component that the user pressed.
@@ -38,9 +43,9 @@ class GameLogicContainer extends Component {
     // RENDER FUNCTIONS ////
 
     // Used to clean up render function, contains the common components { ButtonWrapper, Button } with necessary passed in props.
-    displayTBDButton = () => {
+    displayGameLoopButton = () => {
         return (
-            <ButtonWrapper function={this.TBD}>
+            <ButtonWrapper function={this.gameLoop}>
                 <Button
                     text={"Generate Next Block & Display Pattern"}
                     color={"#FFF8DC"}
@@ -174,38 +179,41 @@ class GameLogicContainer extends Component {
         this.props.addToInputLogger(value);
     };
 
-    TBD = () => {
+    gameLoop = () => {
         if (this.props.displayPatternActive === false) {
-            console.log(
-                `Action Granted: displayPatternActive is currently, (${
-                    this.props.displayPatternActive
-                })`
-            );
-
             const randomNumber = this.getRandomInt(1, 5);
-            switch (randomNumber) {
+            const whichDirection = this.getRandomInt(1, 2);
+
+            // Choose random block.
+            setTimeout(() => {
+                switch (randomNumber) {
+                    case 1:
+                        this.props.addToForwardPatternArray("T");
+                        break;
+                    case 2:
+                        this.props.addToForwardPatternArray("R");
+                        break;
+                    case 3:
+                        this.props.addToForwardPatternArray("B");
+                        break;
+                    case 4:
+                        this.props.addToForwardPatternArray("L");
+                        break;
+                    case 5:
+                        this.props.addToForwardPatternArray("C");
+                        break;
+                }
+            }, 1000);
+
+            // Choose random pattern direction.
+            switch (whichDirection) {
                 case 1:
-                    this.props.addToForwardPatternArray("T");
+                    this.props.setPatternDirection(true);
                     break;
                 case 2:
-                    this.props.addToForwardPatternArray("R");
-                    break;
-                case 3:
-                    this.props.addToForwardPatternArray("B");
-                    break;
-                case 4:
-                    this.props.addToForwardPatternArray("L");
-                    break;
-                case 5:
-                    this.props.addToForwardPatternArray("C");
+                    this.props.setPatternDirection(false);
                     break;
             }
-        } else {
-            console.log(
-                `Action Denied: displayPatternActive is currently, (${
-                    this.props.displayPatternActive
-                })`
-            );
         }
     };
 
@@ -220,7 +228,7 @@ class GameLogicContainer extends Component {
         return (
             <View style={styles.container}>
                 <Cross onPress={this.handlePress} />
-                {this.displayTBDButton()}
+                {this.displayGameLoopButton()}
                 {this.displayHighlightTestButton()}
                 {this.displayHighlightToggleButton()}
             </View>
@@ -246,13 +254,16 @@ const mapStateToProps = state => {
         highlightLeftBlock,
         highlightCenterBlock,
         addToForwardPatternArray,
-        setDisplayPattern
+        setDisplayPattern,
+        setPatternDirection
     } = state;
 
     // console.log(state);
 
     return {
         forwardPatternArray: state.gameState.forwardPatternArray,
+        reversePatternArray: state.gameState.reversePatternArray,
+        patternDirection: state.gameState.patternDirection,
         displayPatternActive: state.gameState.displayPatternActive,
         blockState: state.display.blockState,
         addToInputLogger,
@@ -262,7 +273,8 @@ const mapStateToProps = state => {
         highlightLeftBlock,
         highlightCenterBlock,
         addToForwardPatternArray,
-        setDisplayPattern
+        setDisplayPattern,
+        setPatternDirection
     };
 };
 
@@ -278,6 +290,7 @@ export default connect(
         highlightLeftBlock,
         highlightCenterBlock,
         addToForwardPatternArray,
-        setDisplayPattern
+        setDisplayPattern,
+        setPatternDirection
     }
 )(GameLogicContainerWithNavigation);

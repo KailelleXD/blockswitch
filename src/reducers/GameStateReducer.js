@@ -8,7 +8,8 @@ import {
 
 const INITIAL_STATE = {
     forwardPatternArray: [],
-    patternDirection: false,
+    reversePatternArray: [],
+    patternDirection: true,
     displayPatternActive: false
 };
 
@@ -18,25 +19,35 @@ export default (state = INITIAL_STATE, action) => {
             // console.log(`RESET_GAME reducer called!`);
             return {
                 ...state,
+                patternDirection: true,
                 displayPatternActive: false
             };
         case CLEAR_PATTERNS:
             // console.log(`CLEAR_PATTERNS reducer called!`);
             return {
                 ...state,
-                forwardPatternArray: []
+                forwardPatternArray: [],
+                reversePatternArray: []
             };
         case ADD_TO_FORWARD_PATTERN_ARRAY:
             // console.log(`ADD_TO_FORWARD_PATTERN_ARRAY reducer called!`);
-            const updatedForwardPatternArray = [
-                ...state.forwardPatternArray,
-                action.payload
-            ];
-            // console.log(`forwardPatternArray:${updatedForwardPatternArray}`);
+            const updatedForwardPatternArray = state.patternDirection
+                ? [...state.forwardPatternArray, action.payload]
+                : [action.payload, ...state.forwardPatternArray];
+
+            let reversePatternArray = [...updatedForwardPatternArray];
+            let updatedReversePatternArray = reversePatternArray
+                .reverse()
+                .map((block, i) => {
+                    return block;
+                });
+
             return {
                 ...state,
-                forwardPatternArray: updatedForwardPatternArray
+                forwardPatternArray: updatedForwardPatternArray,
+                reversePatternArray: updatedReversePatternArray
             };
+
         case SET_DISPLAY_PATTERN:
             // console.log(`SET_DISPLAY_PATTERN reducer called!`);
             return {
