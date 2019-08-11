@@ -11,6 +11,7 @@ import {
     highlightCenterBlock
 } from "../actions";
 import Cross from "../components/Cross";
+import { ButtonWrapper, Button } from "./common";
 
 class GameLogicContainer extends Component {
     // function to pass in as props and return type and value from the component that the user pressed.
@@ -66,10 +67,47 @@ class GameLogicContainer extends Component {
         this.props.addToInputLogger(value);
     };
 
+    TBD = () => {
+        const randomNumber = this.getRandomInt(1, 5);
+        switch (randomNumber) {
+            case 1:
+                console.log("T");
+                break;
+            case 2:
+                console.log("R");
+                break;
+            case 3:
+                console.log("B");
+                break;
+            case 4:
+                console.log("L");
+                break;
+            case 5:
+                console.log("C");
+                break;
+        }
+    };
+
+    // Function to get a random integer from 'min' through 'max'.
+    getRandomInt = (min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
     render() {
         return (
             <View style={styles.container}>
                 <Cross onPress={this.handlePress} />
+                <ButtonWrapper function={this.TBD}>
+                    <Button
+                        text={"Generate Random Number"}
+                        color={"#FFF8DC"}
+                        backgroundColor={"#A0522D"}
+                        width={"90%"}
+                        borderColor={"#FFF8DC"}
+                    />
+                </ButtonWrapper>
             </View>
         );
     }
