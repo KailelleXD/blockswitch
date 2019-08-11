@@ -41,7 +41,7 @@ class Block extends Component {
         }
     }
 
-    displayBorder() {
+    centerBlockBorderHighlight() {
         const { top, right, bottom, left } = this.props.blockState;
         if (this.props.color === "yellow") {
             if (top) {
@@ -101,7 +101,7 @@ class Block extends Component {
                     style={[
                         styles.blockStyle,
                         this.colorType(),
-                        this.displayBorder(),
+                        this.centerBlockBorderHighlight(),
                         this.borderRadiusPosition()
                     ]}
                 />
