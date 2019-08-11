@@ -9,7 +9,7 @@ import {
 import EStyleSheet from "react-native-extended-stylesheet";
 import { TextBox, Button, ButtonWrapper } from "../components/common";
 import DoubleTapScreenShot from "../utils/DoubleTapScreenShot";
-import { clearHistory } from "../actions";
+import { clearHistory, clearPatterns } from "../actions";
 
 class DevScreen extends Component {
     // RENDER FUNCTIONS ////
@@ -56,6 +56,7 @@ class DevScreen extends Component {
     // HELPER FUNCTIONS ////
     handlePress = () => {
         this.props.clearHistory();
+        this.props.clearPatterns();
         this.props.navigation.navigate("MainScreen");
     };
 
@@ -118,10 +119,11 @@ const styles = EStyleSheet.create({
 });
 
 const mapStateToProps = state => {
-    const { clearHistory } = state;
+    const { clearHistory, clearPatterns } = state;
     return {
         userInputHistory: state.dev.userInputHistory,
-        clearHistory
+        clearHistory,
+        clearPatterns
     };
 };
 
@@ -129,5 +131,5 @@ const DevScreenWithNavigation = withNavigation(DevScreen);
 
 export default connect(
     mapStateToProps,
-    { clearHistory }
+    { clearHistory, clearPatterns }
 )(DevScreenWithNavigation);
