@@ -12,7 +12,36 @@ class Block extends Component {
         this.props.onPress(this.props.value);
     };
 
-    // STYLE FUNCTIONS ////
+    // RENDER FUNCTIONS ////
+
+    displayBlockWithConditional = () => {
+        // IF userInputActive in GameStateReducer is set to TRUE. ELSE, Take no action.
+        if (this.props.userInputActive) {
+            return (
+                <TouchableWithoutFeedback onPress={this.handlePress}>
+                    <View
+                        style={[
+                            styles.blockStyle,
+                            this.colorType(),
+                            this.centerBlockBorderHighlight(),
+                            this.borderRadiusPosition()
+                        ]}
+                    />
+                </TouchableWithoutFeedback>
+            );
+        } else {
+            return (
+                <View
+                    style={[
+                        styles.blockStyle,
+                        this.colorType(),
+                        this.centerBlockBorderHighlight(),
+                        this.borderRadiusPosition()
+                    ]}
+                />
+            );
+        }
+    };
 
     colorType() {
         const { top, right, bottom, left, center } = this.props.blockState;
@@ -95,18 +124,7 @@ class Block extends Component {
     // --------------- ////
 
     render() {
-        return (
-            <TouchableWithoutFeedback onPress={this.handlePress}>
-                <View
-                    style={[
-                        styles.blockStyle,
-                        this.colorType(),
-                        this.centerBlockBorderHighlight(),
-                        this.borderRadiusPosition()
-                    ]}
-                />
-            </TouchableWithoutFeedback>
-        );
+        return <View>{this.displayBlockWithConditional()}</View>;
     }
 }
 
@@ -266,7 +284,8 @@ const radius = EStyleSheet.create({
 
 const mapStateToProps = state => {
     return {
-        blockState: state.display.blockState
+        blockState: state.display.blockState,
+        userInputActive: state.gameState.userInputActive
     };
 };
 

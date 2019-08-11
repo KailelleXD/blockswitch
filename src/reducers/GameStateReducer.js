@@ -3,7 +3,8 @@ import {
     ADD_TO_PATTERN_ARRAY,
     CLEAR_PATTERNS,
     SET_DISPLAY_PATTERN_ACTIVE,
-    SET_PATTERN_DIRECTION
+    SET_PATTERN_DIRECTION,
+    SET_USER_INPUT_ACTIVE
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -72,6 +73,12 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 patternDirection: action.payload
+            };
+        case SET_USER_INPUT_ACTIVE:
+            this.consoleLogProcess(action);
+            return {
+                ...state,
+                userInputActive: action.payload
             };
         default:
             return state;
