@@ -9,7 +9,7 @@ class MainScreen extends Component {
         return (
             <View style={styles.container}>
                 <DevScreenAccess
-                    devFunction={() => {
+                    function={() => {
                         this.props.navigation.navigate("DevScreen");
                     }}
                 >

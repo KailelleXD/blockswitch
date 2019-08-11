@@ -36,7 +36,7 @@ export default class DevScreenAccess extends Component {
     _handlePanResponderEnd = (event, gesture) => {
         this.cancelLongPress();
         if (this.state.longPress === false) {
-            console.log("longPress function cancelled.");
+            // console.log("longPress function cancelled.");
         }
     };
 
@@ -45,25 +45,25 @@ export default class DevScreenAccess extends Component {
     //----------------------------------------------------------------------------
     // Function to take function being passed in.
     handleLongPress = () => {
-        console.log(`handleLongPress function has been called..`);
-        this.props.devFunction();
+        // console.log(`handleLongPress function has been called..`);
+        this.props.function();
     };
 
     //----------------------------------------------------------------------------
     // Function to determine if press is longer than 2 sec.
     longPress = event => {
-        console.log("longPressTimer started");
+        // console.log("longPressTimer started");
         this.longPressTimer = setTimeout(() => {
             this.setState(
                 {
                     longPress: true
                 },
                 () => {
-                    console.log(`longPress:${this.state.longPress}`);
+                    // console.log(`longPress:${this.state.longPress}`);
                 }
             );
             this.longPressTimer = "end";
-            console.log("longPressTimer complete");
+            // console.log("longPressTimer complete");
             this.handleLongPress();
         }, 1500);
     };
@@ -71,13 +71,13 @@ export default class DevScreenAccess extends Component {
     cancelLongPress = () => {
         if (this.longPressTimer != "end") {
             clearTimeout(this.longPressTimer);
-            console.log("Timeout process cancelled.");
+            // console.log("Timeout process cancelled.");
             this.setState(
                 {
                     longPress: false
                 },
                 () => {
-                    console.log(`longPress:${this.state.longPress}`);
+                    // console.log(`longPress:${this.state.longPress}`);
                 }
             );
         }

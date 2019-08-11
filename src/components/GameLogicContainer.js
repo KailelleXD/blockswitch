@@ -8,7 +8,8 @@ import {
     highlightRightBlock,
     highlightBottomBlock,
     highlightLeftBlock,
-    highlightCenterBlock
+    highlightCenterBlock,
+    addToForwardPatternArray
 } from "../actions";
 import Cross from "../components/Cross";
 import { ButtonWrapper, Button } from "./common";
@@ -71,19 +72,19 @@ class GameLogicContainer extends Component {
         const randomNumber = this.getRandomInt(1, 5);
         switch (randomNumber) {
             case 1:
-                console.log("T");
+                this.props.addToForwardPatternArray("T");
                 break;
             case 2:
-                console.log("R");
+                this.props.addToForwardPatternArray("R");
                 break;
             case 3:
-                console.log("B");
+                this.props.addToForwardPatternArray("B");
                 break;
             case 4:
-                console.log("L");
+                this.props.addToForwardPatternArray("L");
                 break;
             case 5:
-                console.log("C");
+                this.props.addToForwardPatternArray("C");
                 break;
         }
     };
@@ -101,11 +102,12 @@ class GameLogicContainer extends Component {
                 <Cross onPress={this.handlePress} />
                 <ButtonWrapper function={this.TBD}>
                     <Button
-                        text={"Generate Random Number"}
+                        text={"Generate Random Block"}
                         color={"#FFF8DC"}
                         backgroundColor={"#A0522D"}
                         width={"90%"}
                         borderColor={"#FFF8DC"}
+                        marginTop={"1%"}
                     />
                 </ButtonWrapper>
             </View>
@@ -129,7 +131,8 @@ const mapStateToProps = state => {
         highlightRightBlock,
         highlightBottomBlock,
         highlightLeftBlock,
-        highlightCenterBlock
+        highlightCenterBlock,
+        addToForwardPatternArray
     } = state;
 
     // console.log(state);
@@ -141,7 +144,8 @@ const mapStateToProps = state => {
         highlightRightBlock,
         highlightBottomBlock,
         highlightLeftBlock,
-        highlightCenterBlock
+        highlightCenterBlock,
+        addToForwardPatternArray
     };
 };
 
@@ -155,6 +159,7 @@ export default connect(
         highlightRightBlock,
         highlightBottomBlock,
         highlightLeftBlock,
-        highlightCenterBlock
+        highlightCenterBlock,
+        addToForwardPatternArray
     }
 )(GameLogicContainerWithNavigation);
