@@ -19,34 +19,43 @@ class Block extends Component {
 
         switch (this.props.color) {
             case "red":
-                return top ? highlight.red : color.red;
+                return top
+                    ? [highlight.red, border.top]
+                    : [color.red, border.top];
             case "purple":
-                return right ? highlight.purple : color.purple;
+                return right
+                    ? [highlight.purple, border.right]
+                    : [color.purple, border.right];
             case "green":
-                return bottom ? highlight.green : color.green;
+                return bottom
+                    ? [highlight.green, border.bottom]
+                    : [color.green, border.bottom];
             case "blue":
-                return left ? highlight.blue : color.blue;
+                return left
+                    ? [highlight.blue, border.left]
+                    : [color.blue, border.left];
             case "yellow":
-                return center ? highlight.yellow : color.yellow;
+                return center
+                    ? [highlight.yellow, border.all]
+                    : [color.yellow, border.all];
         }
     }
 
     displayBorder() {
-        switch (this.props.border) {
-            case "T":
-                return border.top;
-            case "R":
-                return border.right;
-            case "B":
-                return border.bottom;
-            case "L":
-                return border.left;
-            case true:
-                return border.all;
-            case false:
-                return border.none;
-            default:
-                return null;
+        const { top, right, bottom, left } = this.props.blockState;
+        if (this.props.color === "yellow") {
+            if (top) {
+                return centerBorderHighlight.top;
+            }
+            if (right) {
+                return centerBorderHighlight.right;
+            }
+            if (bottom) {
+                return centerBorderHighlight.bottom;
+            }
+            if (left) {
+                return centerBorderHighlight.left;
+            }
         }
     }
 
@@ -91,7 +100,6 @@ class Block extends Component {
                 <View
                     style={[
                         styles.blockStyle,
-                        // this.props.color,
                         this.colorType(),
                         this.displayBorder(),
                         this.borderRadiusPosition()
@@ -136,54 +144,69 @@ const color = EStyleSheet.create({
 const highlight = EStyleSheet.create({
     red: {
         //dark-red
-        backgroundColor: "#ff0000"
+        backgroundColor: "#ff0000",
+        borderColor: "#fff",
+        borderWidth: ".25rem"
     },
     blue: {
         //dark-blue
-        backgroundColor: "#0000ff"
+        backgroundColor: "#0000ff",
+        borderColor: "#fff"
     },
     yellow: {
         //golden-rod
-        backgroundColor: "#ffff00"
+        backgroundColor: "#ffff00",
+        borderColor: "#fff"
     },
     purple: {
         //neon-purple
-        backgroundColor: "#bc13fe"
+        backgroundColor: "#bc13fe",
+        borderColor: "#fff"
     },
     green: {
         //dark-green
-        backgroundColor: "#00ff00"
+        backgroundColor: "#00ff00",
+        borderColor: "#fff"
+    }
+});
+
+const centerBorderHighlight = EStyleSheet.create({
+    top: {
+        borderTopColor: "#fff"
+    },
+    right: {
+        borderRightColor: "#fff"
+    },
+    bottom: {
+        borderBottomColor: "#fff"
+    },
+    left: {
+        borderLeftColor: "#fff"
     }
 });
 
 const border = EStyleSheet.create({
     top: {
         borderWidth: ".25rem",
-        borderColor: "#000",
         borderBottomWidth: 0
     },
     right: {
         borderWidth: ".25rem",
-        borderColor: "#000",
         borderLeftWidth: 0
     },
     bottom: {
         borderWidth: ".25rem",
-        borderColor: "#000",
         borderTopWidth: 0
     },
     left: {
         borderWidth: ".25rem",
-        borderColor: "#000",
         borderRightWidth: 0
     },
     all: {
-        borderWidth: ".25rem",
-        borderColor: "#000"
+        borderWidth: ".25rem"
     },
     none: {
-        borderWidth: 0,
-        borderColor: "#000"
+        borderWidth: 0
     }
 });
 
