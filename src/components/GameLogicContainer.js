@@ -27,7 +27,7 @@ class GameLogicContainer extends Component {
     //------------------------------------------------------------------------////
 
     componentDidUpdate() {
-        this.renderPatternToCross();
+        this.renderPatternToCross(this.props.forwardPatternArray);
     }
 
     // function to pass in as props and return type and value from the component that the user pressed.
@@ -39,13 +39,84 @@ class GameLogicContainer extends Component {
 
     // RENDER FUNCTIONS ////
 
+    // Used to clean up render function, contains the common components { ButtonWrapper, Button } with necessary passed in props.
+    displayTBDButton = () => {
+        return (
+            <ButtonWrapper function={this.TBD}>
+                <Button
+                    text={"Generate Next Block & Display Pattern"}
+                    color={"#FFF8DC"}
+                    backgroundColor={"#A0522D"}
+                    width={"90%"}
+                    borderColor={"#FFF8DC"}
+                    marginTop={"1%"}
+                />
+            </ButtonWrapper>
+        );
+    };
+
+    // Used to clean up render function, contains the common components { ButtonWrapper, Button } with necessary passed in props.
+    displayHighlightTestButton = () => {
+        return (
+            <ButtonWrapper
+                function={() => {
+                    const highlightTestArray = ["T", "R", "B", "L", "C"];
+                    this.renderPatternToCross(highlightTestArray);
+                }}
+            >
+                <Button
+                    text={"Button Highlight Test"}
+                    color={"#FFF8DC"}
+                    backgroundColor={"#008080"}
+                    width={"90%"}
+                    borderColor={"#FFF8DC"}
+                    marginTop={".1%"}
+                />
+            </ButtonWrapper>
+        );
+    };
+
+    // Used to clean up render function, contains the common components { ButtonWrapper, Button } with necessary passed in props.
+    displayHighlightToggleButton = () => {
+        return (
+            <ButtonWrapper
+                function={() => {
+                    this.props.highlightTopBlock(
+                        this.props.blockState.top ? false : true
+                    );
+                    this.props.highlightRightBlock(
+                        this.props.blockState.top ? false : true
+                    );
+                    this.props.highlightBottomBlock(
+                        this.props.blockState.top ? false : true
+                    );
+                    this.props.highlightLeftBlock(
+                        this.props.blockState.top ? false : true
+                    );
+                    this.props.highlightCenterBlock(
+                        this.props.blockState.top ? false : true
+                    );
+                }}
+            >
+                <Button
+                    text={"Button Highlight Toggle"}
+                    color={"#FFF8DC"}
+                    backgroundColor={"#800080"}
+                    width={"90%"}
+                    borderColor={"#FFF8DC"}
+                    marginTop={".1%"}
+                />
+            </ButtonWrapper>
+        );
+    };
+
     // Function to highlight the current pattern on the cross component.
-    renderPatternToCross = () => {
-        if (this.props.forwardPatternArray.length !== 0) {
+    renderPatternToCross = array => {
+        if (array.length !== 0) {
             this.props.setDisplayPattern(true);
         }
         const delayDuration = 500; // MOVE-TO-STORE
-        this.props.forwardPatternArray.map((block, i) => {
+        array.map((block, i) => {
             if (i > 0) {
                 setTimeout(() => {
                     this.highlightBlock(block);
@@ -53,10 +124,10 @@ class GameLogicContainer extends Component {
             } else {
                 this.highlightBlock(block);
             }
-            if (i === this.props.forwardPatternArray.length - 1) {
+            if (i === array.length - 1) {
                 setTimeout(() => {
                     this.props.setDisplayPattern(false);
-                }, delayDuration * this.props.forwardPatternArray.length);
+                }, delayDuration * array.length);
             }
         });
     };
@@ -151,16 +222,9 @@ class GameLogicContainer extends Component {
         return (
             <View style={styles.container}>
                 <Cross onPress={this.handlePress} />
-                <ButtonWrapper function={this.TBD}>
-                    <Button
-                        text={"Generate Next Block & Display Pattern"}
-                        color={"#FFF8DC"}
-                        backgroundColor={"#A0522D"}
-                        width={"90%"}
-                        borderColor={"#FFF8DC"}
-                        marginTop={"1%"}
-                    />
-                </ButtonWrapper>
+                {this.displayTBDButton()}
+                {this.displayHighlightTestButton()}
+                {this.displayHighlightToggleButton()}
             </View>
         );
     }
@@ -192,6 +256,7 @@ const mapStateToProps = state => {
     return {
         forwardPatternArray: state.gameState.forwardPatternArray,
         displayPatternActive: state.gameState.displayPatternActive,
+        blockState: state.display.blockState,
         addToInputLogger,
         highlightTopBlock,
         highlightRightBlock,
