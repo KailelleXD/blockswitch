@@ -15,3 +15,4 @@ export const CLEAR_PATTERNS = "clear_patterns";
 export const ADD_TO_PATTERN_ARRAY = "add_to_pattern_array";
 export const SET_DISPLAY_PATTERN_ACTIVE = "set_display_pattern_active";
 export const SET_PATTERN_DIRECTION = "set_pattern_direction";
+export const SET_USER_INPUT_ACTIVE = "set_user_input_active"

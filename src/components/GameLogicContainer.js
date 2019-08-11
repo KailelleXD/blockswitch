@@ -15,7 +15,7 @@ import {
 } from "../actions";
 import Cross from "../components/Cross";
 import { ButtonWrapper, Button } from "./common";
-import ToggleHighlightBlocks from "../utils/testComponents/ToggleHighlightBlocks";
+import ToggleUserInput from "../utils/testComponents/ToggleUserInput";
 
 class GameLogicContainer extends Component {
     constructor(props) {
@@ -59,13 +59,6 @@ class GameLogicContainer extends Component {
             );
             console.log(`---`);
         }
-    };
-
-    // function to pass in as props and return type and value from the component that the user pressed.
-    handlePress = value => {
-        // The following function is used to console log user input to help debug.
-        this.userInputLogger(value);
-        this.highlightBlock(value);
     };
 
     // RENDER FUNCTIONS ////
@@ -147,6 +140,13 @@ class GameLogicContainer extends Component {
 
     // HELPER FUNCTIONS ////
 
+    // function to pass in as props and return type and value from the component that the user pressed.
+    handlePress = value => {
+        // The following function is used to console log user input to help debug.
+        this.userInputLogger(value);
+        this.highlightBlock(value);
+    };
+
     // Function to log all user input for debugging and developer screen.
     userInputLogger = value => {
         this.props.addToInputLogger(value);
@@ -204,6 +204,7 @@ class GameLogicContainer extends Component {
             <View style={styles.container}>
                 <Cross onPress={this.handlePress} />
                 {this.displayGameLoopButton()}
+                <ToggleUserInput />
             </View>
         );
     }
@@ -238,7 +239,6 @@ const mapStateToProps = state => {
         reversePatternArray: state.gameState.reversePatternArray,
         patternDirection: state.gameState.patternDirection,
         displayPatternActive: state.gameState.displayPatternActive,
-        userInputActive: state.gameState.userInputActive,
         blockState: state.display.blockState,
         addToInputLogger,
         highlightTopBlock,

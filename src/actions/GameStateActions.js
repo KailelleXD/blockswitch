@@ -3,7 +3,8 @@ import {
     ADD_TO_PATTERN_ARRAY,
     CLEAR_PATTERNS,
     SET_DISPLAY_PATTERN_ACTIVE,
-    SET_PATTERN_DIRECTION
+    SET_PATTERN_DIRECTION,
+    SET_USER_INPUT_ACTIVE
 } from "./types";
 
 // RESET_GAME ////
@@ -45,6 +46,15 @@ export const setPatternDirection = bool => {
     // console.log(`SET_PATTERN_DIRECTION action called! (${bool})`);
     return {
         type: SET_PATTERN_DIRECTION,
+        payload: bool
+    };
+};
+
+// SET_USER_INPUT_ACTIVE ////
+export const setUserInputActive = bool => {
+    // console.log(`SET_USER_INPUT_ACTIVE action called! (${bool})`);
+    return {
+        type: SET_USER_INPUT_ACTIVE,
         payload: bool
     };
 };
