@@ -20,8 +20,8 @@ class Block extends Component {
         switch (this.props.color) {
             case "red":
                 return top ? highlight.red : color.red;
-            case "orange":
-                return right ? highlight.orange : color.orange;
+            case "purple":
+                return right ? highlight.purple : color.purple;
             case "green":
                 return bottom ? highlight.green : color.green;
             case "blue":
@@ -123,10 +123,9 @@ const color = EStyleSheet.create({
         //golden-rod
         backgroundColor: "#DAA520"
     },
-    orange: {
-        //orange-red
-        // backgroundColor: "#FF4500"
-        backgroundColor: "#ff8c00"
+    purple: {
+        //dark-purple
+        backgroundColor: "#301934"
     },
     green: {
         //dark-green
@@ -147,9 +146,9 @@ const highlight = EStyleSheet.create({
         //golden-rod
         backgroundColor: "#ffff00"
     },
-    orange: {
-        //orange-red
-        backgroundColor: "#FFA500"
+    purple: {
+        //neon-purple
+        backgroundColor: "#bc13fe"
     },
     green: {
         //dark-green

@@ -45,7 +45,7 @@ export default class Cross extends Component {
                         onPress={this.handlePress}
                         value={"R"}
                         border={"R"}
-                        color={"orange"}
+                        color={"purple"}
                         borderRadius={"R"}
                     />
                 </View>

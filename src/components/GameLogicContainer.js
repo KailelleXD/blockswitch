@@ -9,12 +9,27 @@ import {
     highlightBottomBlock,
     highlightLeftBlock,
     highlightCenterBlock,
-    addToForwardPatternArray
+    addToForwardPatternArray,
+    setDisplayPattern
 } from "../actions";
 import Cross from "../components/Cross";
 import { ButtonWrapper, Button } from "./common";
 
 class GameLogicContainer extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    // I don't believe this lifecycle method is necessary.. ------------------////
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.forwardPatternArray != nextProps.forwardPatternArray;
+    }
+    //------------------------------------------------------------------------////
+
+    componentDidUpdate() {
+        this.renderPatternToCross();
+    }
+
     // function to pass in as props and return type and value from the component that the user pressed.
     handlePress = value => {
         // The following function is used to console log user input to help debug.
@@ -24,9 +39,31 @@ class GameLogicContainer extends Component {
 
     // RENDER FUNCTIONS ////
 
+    // Function to highlight the current pattern on the cross component.
+    renderPatternToCross = () => {
+        if (this.props.forwardPatternArray.length !== 0) {
+            this.props.setDisplayPattern(true);
+        }
+        const delayDuration = 500; // MOVE-TO-STORE
+        this.props.forwardPatternArray.map((block, i) => {
+            if (i > 0) {
+                setTimeout(() => {
+                    this.highlightBlock(block);
+                }, delayDuration * i);
+            } else {
+                this.highlightBlock(block);
+            }
+            if (i === this.props.forwardPatternArray.length - 1) {
+                setTimeout(() => {
+                    this.props.setDisplayPattern(false);
+                }, delayDuration * this.props.forwardPatternArray.length);
+            }
+        });
+    };
+
     // Function to highlight a selected block for 'x' seconds.
     highlightBlock = value => {
-        const highlightDuration = 250;
+        const highlightDuration = 250; // MOVE-TO-STORE
         switch (value) {
             case "T":
                 this.props.highlightTopBlock(true);
@@ -69,23 +106,37 @@ class GameLogicContainer extends Component {
     };
 
     TBD = () => {
-        const randomNumber = this.getRandomInt(1, 5);
-        switch (randomNumber) {
-            case 1:
-                this.props.addToForwardPatternArray("T");
-                break;
-            case 2:
-                this.props.addToForwardPatternArray("R");
-                break;
-            case 3:
-                this.props.addToForwardPatternArray("B");
-                break;
-            case 4:
-                this.props.addToForwardPatternArray("L");
-                break;
-            case 5:
-                this.props.addToForwardPatternArray("C");
-                break;
+        if (this.props.displayPatternActive === false) {
+            console.log(
+                `Action Granted: displayPatternActive is currently, (${
+                    this.props.displayPatternActive
+                })`
+            );
+
+            const randomNumber = this.getRandomInt(1, 5);
+            switch (randomNumber) {
+                case 1:
+                    this.props.addToForwardPatternArray("T");
+                    break;
+                case 2:
+                    this.props.addToForwardPatternArray("R");
+                    break;
+                case 3:
+                    this.props.addToForwardPatternArray("B");
+                    break;
+                case 4:
+                    this.props.addToForwardPatternArray("L");
+                    break;
+                case 5:
+                    this.props.addToForwardPatternArray("C");
+                    break;
+            }
+        } else {
+            console.log(
+                `Action Denied: displayPatternActive is currently, (${
+                    this.props.displayPatternActive
+                })`
+            );
         }
     };
 
@@ -102,7 +153,7 @@ class GameLogicContainer extends Component {
                 <Cross onPress={this.handlePress} />
                 <ButtonWrapper function={this.TBD}>
                     <Button
-                        text={"Generate Random Block"}
+                        text={"Generate Next Block & Display Pattern"}
                         color={"#FFF8DC"}
                         backgroundColor={"#A0522D"}
                         width={"90%"}
@@ -132,20 +183,23 @@ const mapStateToProps = state => {
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
-        addToForwardPatternArray
+        addToForwardPatternArray,
+        setDisplayPattern
     } = state;
 
     // console.log(state);
 
     return {
-        state: state.dev,
+        forwardPatternArray: state.gameState.forwardPatternArray,
+        displayPatternActive: state.gameState.displayPatternActive,
         addToInputLogger,
         highlightTopBlock,
         highlightRightBlock,
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
-        addToForwardPatternArray
+        addToForwardPatternArray,
+        setDisplayPattern
     };
 };
 
@@ -160,6 +214,7 @@ export default connect(
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
-        addToForwardPatternArray
+        addToForwardPatternArray,
+        setDisplayPattern
     }
 )(GameLogicContainerWithNavigation);
