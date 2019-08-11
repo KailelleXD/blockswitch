@@ -1,17 +1,29 @@
 import { ADD_TO_INPUT_LOGGER, CLEAR_USER_LOGS } from "../actions/types";
 
 const INITIAL_STATE = {
+    displayConsoleLogs: false, //toggle to display console logs.
     userInputLog: []
 };
+
+consoleLogProcess = action => {
+    const displayConsoleLogs = INITIAL_STATE[Object.keys(INITIAL_STATE)[0]];
+    if (displayConsoleLogs) {
+        console.log(
+            `${action.type}: (${
+                action.payload || !action.payload ? action.payload : ""
+            })`
+        );
+    }
+}; //consoleLogProcess(action);
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ADD_TO_INPUT_LOGGER:
-            // console.log(`ADD_TO_INPUT_LOGGER reducer called!`);
+            consoleLogProcess(action);
             const updatedUserLogs = [...state.userInputLog, action.payload];
             return { ...state, userInputLog: updatedUserLogs };
         case CLEAR_USER_LOGS:
-            // console.log(`CLEAR_HISTORY reducer called!`);
+            consoleLogProcess(action);
             return { ...state, userInputLog: [] };
         default:
             return state;

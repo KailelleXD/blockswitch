@@ -10,15 +10,18 @@ import {
     highlightLeftBlock,
     highlightCenterBlock,
     addToPatternArray,
-    setDisplayPattern,
+    setDisplayPatternActive,
     setPatternDirection
 } from "../actions";
 import Cross from "../components/Cross";
 import { ButtonWrapper, Button } from "./common";
+import ToggleHighlightBlocks from "../utils/testComponents/ToggleHighlightBlocks";
 
 class GameLogicContainer extends Component {
     constructor(props) {
         super(props);
+
+        this.state = { consoleLogPatternInfo: false };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -26,12 +29,37 @@ class GameLogicContainer extends Component {
     }
 
     componentDidUpdate() {
-        this.props.patternDirection
-            ? this.renderPatternToCross(this.props.forwardPatternArray)
-            : this.renderPatternToCross(this.props.reversePatternArray);
-        // console.log(`forwardPatternArray:${this.props.forwardPatternArray}`);
-        // console.log(`reversePatternArray:${this.props.reversePatternArray}`);
+        if (!this.props.displayPatternActive && !this.props.userInputActive) {
+            this.props.patternDirection
+                ? this.renderPatternToCross(this.props.forwardPatternArray)
+                : this.renderPatternToCross(this.props.reversePatternArray);
+            this.consoleLogPatternInfo();
+        }
     }
+
+    // DEVELOPER FUNCTIONS ////
+    // function to display pattern details if local state bool is set to TRUE.
+    consoleLogPatternInfo = () => {
+        const {
+            patternDirection,
+            forwardPatternArray,
+            reversePatternArray
+        } = this.props;
+        if (this.state.consoleLogPatternInfo) {
+            console.log(`---`);
+            console.log(
+                `${
+                    patternDirection ? "> " : "  "
+                }forwardPatternArray: [${forwardPatternArray}]`
+            );
+            console.log(
+                `${
+                    !patternDirection ? "> " : "  "
+                }reversePatternArray: [${reversePatternArray}]`
+            );
+            console.log(`---`);
+        }
+    };
 
     // function to pass in as props and return type and value from the component that the user pressed.
     handlePress = value => {
@@ -58,65 +86,10 @@ class GameLogicContainer extends Component {
         );
     };
 
-    // Used to clean up render function, contains the common components { ButtonWrapper, Button } with necessary passed in props.
-    displayHighlightTestButton = () => {
-        return (
-            <ButtonWrapper
-                function={() => {
-                    const highlightTestArray = ["T", "R", "B", "L", "C"];
-                    this.renderPatternToCross(highlightTestArray);
-                }}
-            >
-                <Button
-                    text={"Button Highlight Test"}
-                    color={"#FFF8DC"}
-                    backgroundColor={"#008080"}
-                    width={"90%"}
-                    borderColor={"#FFF8DC"}
-                    marginTop={".1%"}
-                />
-            </ButtonWrapper>
-        );
-    };
-
-    // Used to clean up render function, contains the common components { ButtonWrapper, Button } with necessary passed in props.
-    displayHighlightToggleButton = () => {
-        return (
-            <ButtonWrapper
-                function={() => {
-                    this.props.highlightTopBlock(
-                        this.props.blockState.top ? false : true
-                    );
-                    this.props.highlightRightBlock(
-                        this.props.blockState.top ? false : true
-                    );
-                    this.props.highlightBottomBlock(
-                        this.props.blockState.top ? false : true
-                    );
-                    this.props.highlightLeftBlock(
-                        this.props.blockState.top ? false : true
-                    );
-                    this.props.highlightCenterBlock(
-                        this.props.blockState.top ? false : true
-                    );
-                }}
-            >
-                <Button
-                    text={"Button Highlight Toggle"}
-                    color={"#FFF8DC"}
-                    backgroundColor={"#800080"}
-                    width={"90%"}
-                    borderColor={"#FFF8DC"}
-                    marginTop={".1%"}
-                />
-            </ButtonWrapper>
-        );
-    };
-
     // Function to highlight the current pattern on the cross component.
     renderPatternToCross = array => {
         if (array.length !== 0) {
-            this.props.setDisplayPattern(true);
+            this.props.setDisplayPatternActive(true);
         }
         const delayDuration = 500; // MOVE-TO-STORE
         array.map((block, i) => {
@@ -129,7 +102,7 @@ class GameLogicContainer extends Component {
             }
             if (i === array.length - 1) {
                 setTimeout(() => {
-                    this.props.setDisplayPattern(false);
+                    this.props.setDisplayPatternActive(false);
                 }, delayDuration * array.length);
             }
         });
@@ -180,7 +153,7 @@ class GameLogicContainer extends Component {
     };
 
     gameLoop = () => {
-        if (this.props.displayPatternActive === false) {
+        if (!this.props.displayPatternActive && !this.props.userInputActive) {
             const randomNumber = this.getRandomInt(1, 5);
             const whichDirection = this.getRandomInt(1, 2);
 
@@ -224,13 +197,13 @@ class GameLogicContainer extends Component {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
+    // RENDER ////
+
     render() {
         return (
             <View style={styles.container}>
                 <Cross onPress={this.handlePress} />
                 {this.displayGameLoopButton()}
-                {this.displayHighlightTestButton()}
-                {this.displayHighlightToggleButton()}
             </View>
         );
     }
@@ -254,17 +227,18 @@ const mapStateToProps = state => {
         highlightLeftBlock,
         highlightCenterBlock,
         addToPatternArray,
-        setDisplayPattern,
+        setDisplayPatternActive,
         setPatternDirection
     } = state;
 
-    // console.log(state);
+    // console.log(state.gameState);
 
     return {
         forwardPatternArray: state.gameState.forwardPatternArray,
         reversePatternArray: state.gameState.reversePatternArray,
         patternDirection: state.gameState.patternDirection,
         displayPatternActive: state.gameState.displayPatternActive,
+        userInputActive: state.gameState.userInputActive,
         blockState: state.display.blockState,
         addToInputLogger,
         highlightTopBlock,
@@ -273,7 +247,7 @@ const mapStateToProps = state => {
         highlightLeftBlock,
         highlightCenterBlock,
         addToPatternArray,
-        setDisplayPattern,
+        setDisplayPatternActive,
         setPatternDirection
     };
 };
@@ -290,7 +264,7 @@ export default connect(
         highlightLeftBlock,
         highlightCenterBlock,
         addToPatternArray,
-        setDisplayPattern,
+        setDisplayPatternActive,
         setPatternDirection
     }
 )(GameLogicContainerWithNavigation);
