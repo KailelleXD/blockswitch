@@ -2,11 +2,13 @@ import {
     RESET_GAME,
     ADD_TO_FORWARD_PATTERN_ARRAY,
     CLEAR_PATTERNS,
-    SET_DISPLAY_PATTERN
+    SET_DISPLAY_PATTERN,
+    SET_PATTERN_DIRECTION
 } from "../actions/types";
 
 const INITIAL_STATE = {
     forwardPatternArray: [],
+    patternDirection: false,
     displayPatternActive: false
 };
 
@@ -40,6 +42,12 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 displayPatternActive: action.payload
+            };
+        case SET_PATTERN_DIRECTION:
+            // console.log(`SET_PATTERN_DIRECTION reducer called!`);
+            return {
+                ...state,
+                patternDirection: action.payload
             };
         default:
             return state;

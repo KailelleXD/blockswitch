@@ -33,8 +33,6 @@ class Button extends Component {
         super(props);
     }
 
-    // STYLE FUNCTIONS ////
-
     render() {
         return (
             <View>

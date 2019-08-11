@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, View } from "react-native";
 import { withNavigation } from "react-navigation";
+import Title from "../components/Title";
 import GameLogicContainer from "../components/GameLogicContainer";
 import DevScreenAccess from "../utils/DevScreenAccess";
 
@@ -13,6 +14,7 @@ class MainScreen extends Component {
                         this.props.navigation.navigate("DevScreen");
                     }}
                 >
+                    <Title />
                     <GameLogicContainer />
                 </DevScreenAccess>
             </View>

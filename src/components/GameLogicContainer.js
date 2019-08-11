@@ -20,11 +20,9 @@ class GameLogicContainer extends Component {
         super(props);
     }
 
-    // I don't believe this lifecycle method is necessary.. ------------------////
     shouldComponentUpdate(nextProps, nextState) {
         return this.props.forwardPatternArray != nextProps.forwardPatternArray;
     }
-    //------------------------------------------------------------------------////
 
     componentDidUpdate() {
         this.renderPatternToCross(this.props.forwardPatternArray);

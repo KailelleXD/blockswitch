@@ -14,3 +14,4 @@ export const RESET_GAME = "reset_game";
 export const CLEAR_PATTERNS = "clear_patterns";
 export const ADD_TO_FORWARD_PATTERN_ARRAY = "add_to_forward_pattern_array";
 export const SET_DISPLAY_PATTERN = "set_display_pattern";
+export const SET_PATTERN_DIRECTION = "set_pattern_direction";
