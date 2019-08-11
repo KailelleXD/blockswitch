@@ -2,7 +2,8 @@ import {
     RESET_GAME,
     ADD_TO_FORWARD_PATTERN_ARRAY,
     CLEAR_PATTERNS,
-    SET_DISPLAY_PATTERN
+    SET_DISPLAY_PATTERN,
+    SET_PATTERN_DIRECTION
 } from "./types";
 
 // RESET_GAME ////
@@ -32,9 +33,18 @@ export const addToForwardPatternArray = value => {
 
 // SET_DISPLAY_PATTERN ////
 export const setDisplayPattern = bool => {
-    console.log(`SET_DISPLAY_PATTERN action called! (${bool})`);
+    // console.log(`SET_DISPLAY_PATTERN action called! (${bool})`);
     return {
         type: SET_DISPLAY_PATTERN,
+        payload: bool
+    };
+};
+
+// SET_PATTERN_DIRECTION ////
+export const setPatternDirection = bool => {
+    // console.log(`SET_PATTERN_DIRECTION action called! (${bool})`);
+    return {
+        type: SET_PATTERN_DIRECTION,
         payload: bool
     };
 };
