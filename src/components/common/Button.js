@@ -9,9 +9,11 @@ import EStyleSheet from "react-native-extended-stylesheet";
 /* 
 Available props to use with this component: 
     text, 
+    backgroundColor,
     color, 
     height, 
     width, 
+    alignSelf,
     textAlign, 
     textAlignVertical, 
     borderWidth, 
@@ -45,6 +47,7 @@ class Button extends Component {
                             color: this.props.color || "#fff",
                             height: hp(this.props.height || "7.5%"),
                             width: wp(this.props.width || "100%"),
+                            alignSelf: this.props.alignSelf || "center",
                             textAlign: this.props.textAlign || "center",
                             textAlignVertical:
                                 this.props.textAlignVertical ||
