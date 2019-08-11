@@ -1,6 +1,6 @@
 // DEV ACTIONS ////
 export const ADD_TO_INPUT_LOGGER = "add_to_input_logger";
-export const CLEAR_HISTORY = "clear_history";
+export const CLEAR_USER_LOGS = "clear_user_logs";
 
 // DISPLAY ACTIONS ////
 export const HIGHLIGHT_TOP_BLOCK = "highlight_top_block";

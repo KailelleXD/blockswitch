@@ -9,7 +9,7 @@ import {
 import EStyleSheet from "react-native-extended-stylesheet";
 import { TextBox, Button, ButtonWrapper } from "../components/common";
 import DoubleTapScreenShot from "../utils/DoubleTapScreenShot";
-import { resetGame, clearHistory, clearPatterns } from "../actions";
+import { resetGame, clearUserLogs, clearPatterns } from "../actions";
 
 class DevScreen extends Component {
     // RENDER FUNCTIONS ////
@@ -21,8 +21,8 @@ class DevScreen extends Component {
                 <Text style={styles.textStyle}>-----------------------</Text>
                 <Text style={styles.textStyle}>Developer Screen</Text>
                 <Text style={styles.textStyle}>-----------------------</Text>
-                <Text style={styles.userInputHistoryStyle}>
-                    {this.displayUserInputHistory()}
+                <Text style={styles.userInputLogStyle}>
+                    {this.displayUserInputLog()}
                 </Text>
                 <Text style={styles.textStyle}>-----------------------</Text>
             </View>
@@ -30,7 +30,7 @@ class DevScreen extends Component {
     };
 
     // Used to clean up render function, contains the common components { ButtonWrapper, Button } with necessary passed in props.
-    displayClearHistoryButton = () => {
+    displayClearUserLogsButton = () => {
         return (
             <ButtonWrapper function={this.handlePress} opacity={0.8}>
                 <Button
@@ -44,18 +44,16 @@ class DevScreen extends Component {
         );
     };
 
-    displayUserInputHistory = () => {
-        const userInputHistoryMap = this.props.userInputHistory.map(
-            (move, i) => {
-                return `[${move}],`;
-            }
-        );
-        return userInputHistoryMap;
+    displayUserInputLog = () => {
+        const userInputLogMap = this.props.userInputLog.map((move, i) => {
+            return `[${move}],`;
+        });
+        return userInputLogMap;
     };
 
     // HELPER FUNCTIONS ////
     handlePress = () => {
-        this.props.clearHistory();
+        this.props.clearUserLogs();
         this.props.clearPatterns();
         this.props.resetGame();
         this.props.navigation.navigate("MainScreen");
@@ -72,7 +70,7 @@ class DevScreen extends Component {
                                 "Please enter description of bug/issue.."
                             }
                         />
-                        {this.displayClearHistoryButton()}
+                        {this.displayClearUserLogsButton()}
                         <Text style={styles.doubleTapStyle}>
                             ( Double-tap to take a screenshot! )
                         </Text>
@@ -109,7 +107,7 @@ const styles = EStyleSheet.create({
         textAlign: "center",
         paddingTop: hp("1%")
     },
-    userInputHistoryStyle: {
+    userInputLogStyle: {
         fontSize: "1rem",
         fontWeight: "100",
         letterSpacing: ".25rem",
@@ -120,11 +118,11 @@ const styles = EStyleSheet.create({
 });
 
 const mapStateToProps = state => {
-    const { resetGame, clearHistory, clearPatterns } = state;
+    const { resetGame, clearUserLogs, clearPatterns } = state;
     return {
-        userInputHistory: state.dev.userInputHistory,
+        userInputLog: state.dev.userInputLog,
         resetGame,
-        clearHistory,
+        clearUserLogs,
         clearPatterns
     };
 };
@@ -133,5 +131,5 @@ const DevScreenWithNavigation = withNavigation(DevScreen);
 
 export default connect(
     mapStateToProps,
-    { resetGame, clearHistory, clearPatterns }
+    { resetGame, clearUserLogs, clearPatterns }
 )(DevScreenWithNavigation);

@@ -1,4 +1,4 @@
-import { ADD_TO_INPUT_LOGGER, CLEAR_HISTORY } from "./types";
+import { ADD_TO_INPUT_LOGGER, CLEAR_USER_LOGS } from "./types";
 
 // ADD_TO_INPUT_LOGGER ////
 export const addToInputLogger = value => {
@@ -10,9 +10,9 @@ export const addToInputLogger = value => {
 };
 
 // CLEAR_HISTORY ////
-export const clearHistory = () => {
+export const clearUserLogs = () => {
     // console.log(`CLEAR_HISTORY action called!`);
     return {
-        type: CLEAR_HISTORY
+        type: CLEAR_USER_LOGS
     };
 };
