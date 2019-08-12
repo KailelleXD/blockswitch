@@ -16,7 +16,7 @@ class Block extends Component {
 
     displayBlockWithConditional = () => {
         // IF userInputActive in GameStateReducer is set to TRUE. ELSE, Take no action.
-        if (this.props.userInputActive) {
+        if (this.props.userInputActive || this.props.displayPatternActive) {
             return (
                 <TouchableWithoutFeedback onPress={this.handlePress}>
                     <View
@@ -35,6 +35,8 @@ class Block extends Component {
                     style={[
                         styles.blockStyle,
                         this.colorType(),
+                        // Not sure I like this feature..
+                        // this.colorTypeDeactivated(),
                         this.centerBlockBorderHighlight(),
                         this.borderRadiusPosition()
                     ]}
@@ -67,6 +69,33 @@ class Block extends Component {
                 return center
                     ? [highlight.yellow, border.all]
                     : [color.yellow, border.all];
+        }
+    }
+
+    colorTypeDeactivated() {
+        const { top, right, bottom, left, center } = this.props.blockState;
+
+        switch (this.props.color) {
+            case "red":
+                return top
+                    ? [highlight.red, border.top]
+                    : [color.disabled, border.top];
+            case "purple":
+                return right
+                    ? [highlight.purple, border.right]
+                    : [color.disabled, border.right];
+            case "green":
+                return bottom
+                    ? [highlight.green, border.bottom]
+                    : [color.disabled, border.bottom];
+            case "blue":
+                return left
+                    ? [highlight.blue, border.left]
+                    : [color.disabled, border.left];
+            case "yellow":
+                return center
+                    ? [highlight.yellow, border.all]
+                    : [color.disabled, border.all];
         }
     }
 
@@ -156,6 +185,10 @@ const color = EStyleSheet.create({
     green: {
         //dark-green
         backgroundColor: "#006400"
+    },
+    disabled: {
+        //gray
+        backgroundColor: "#303030"
     }
 });
 
@@ -285,6 +318,7 @@ const radius = EStyleSheet.create({
 const mapStateToProps = state => {
     return {
         blockState: state.display.blockState,
+        displayPatternActive: state.gameState.displayPatternActive,
         userInputActive: state.gameState.userInputActive
     };
 };
