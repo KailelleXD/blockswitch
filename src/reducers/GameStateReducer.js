@@ -11,7 +11,7 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
-    displayConsoleLogs: false, //toggle to display console logs.
+    displayConsoleLogs: true, //toggle to display console logs.
     forwardPatternArray: [],
     reversePatternArray: [],
     patternCounter: 0,
@@ -22,13 +22,11 @@ const INITIAL_STATE = {
     userInputActive: false
 };
 
-consoleLogProcess = action => {
+consoleLogProcess = (action, value) => {
     const displayConsoleLogs = INITIAL_STATE[Object.keys(INITIAL_STATE)[0]];
     if (displayConsoleLogs) {
         console.log(
-            `${action.type}: (${
-                action.payload || !action.payload ? action.payload : ""
-            })`
+            `${action.type}: (${action.payload ? action.payload : value})`
         );
     }
 }; //consoleLogProcess(action);
@@ -73,9 +71,9 @@ export default (state = INITIAL_STATE, action) => {
                 patternCounter: updatedForwardPatternArray.length
             };
         case INCREMENT_INPUT_COUNTER:
-            this.consoleLogProcess(action);
-            let inputCounter = state.inputCounter;
-            let updatedInputCount = inputCounter++;
+            let updatedInputCount = state.inputCounter;
+            updatedInputCount++;
+            this.consoleLogProcess(action, updatedInputCount);
             return {
                 ...state,
                 inputCounter: updatedInputCount

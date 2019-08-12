@@ -31,7 +31,9 @@ class GameLogicContainer extends Component {
         return (
             this.props.forwardPatternArray != nextProps.forwardPatternArray ||
             this.props.inputPatternArray != nextProps.inputPatternArray ||
-            this.props.userInputActive != nextProps.userInputActive
+            this.props.userInputActive != nextProps.userInputActive ||
+            this.props.patternCounter != nextProps.patternCounter ||
+            this.props.inputCounter != nextProps.inputCounter
         );
     }
 
@@ -57,7 +59,7 @@ class GameLogicContainer extends Component {
             userInputActive
         } = this.props;
 
-        if (this.state.consoleLogPatternInfo && userInputActive) {
+        if (this.state.consoleLogPatternInfo) {
             console.log(`---`);
             console.log(`  inputCounter: ${inputCounter}`);
             console.log(`  inputPatternArray: [${inputPatternArray}]`);
@@ -154,27 +156,36 @@ class GameLogicContainer extends Component {
         }
     };
 
-    // HELPER FUNCTIONS ////
+    // ASYNC FUNCTIONS ////
 
-    // function to pass in as props and return type and value from the component that the user pressed.
-    handlePress = value => {
+    initialize = async value => {
         const {
+            addToInputLogger,
+            addToInputPatternArray,
+            incrementInputCounter,
             forwardPatternArray,
             reversePatternArray,
-            inputPatternArray,
-            patternCounter,
-            inputCounter
+            inputPatternArray
         } = this.props;
 
-        // IF, patternCounter AND inputCounter are equal, compare patterns.
-        if (patternCounter === inputCounter) {
-            this.comparePatterns(
+        try {
+            await incrementInputCounter();
+            await addToInputPatternArray(value);
+            addToInputLogger(value);
+            this.compareWhichPatterns(
                 forwardPatternArray,
                 reversePatternArray,
                 inputPatternArray
             );
+        } catch (e) {
+            console.log(e);
         }
+    };
 
+    // HELPER FUNCTIONS ////
+
+    // function to pass in as props and return type and value from the component that the user pressed.
+    handlePress = value => {
         // The following function is used to console log user input to help debug.
         this.inputLogger(value);
         this.highlightBlock(value);
@@ -182,13 +193,29 @@ class GameLogicContainer extends Component {
 
     // Function to log all user input to devReducer and gameStateReducer.
     inputLogger = value => {
-        this.props.addToInputLogger(value);
-        this.props.addToInputPatternArray(value);
-        this.props.incrementInputCounter();
+        this.initialize(value);
     };
 
-    comparePatterns = (forward, reverse, input) => {
-        console.log(`Comparing Patterns...`);
+    // Function to check patternDirection and call the comparePattern function with correct values passed in.
+    compareWhichPatterns = (forward, reverse, input) => {
+        console.log(`forward:${forward}`);
+        console.log(`reverse:${reverse}`);
+        console.log(`input:${input}`);
+        const { patternDirection, patternCounter, inputCounter } = this.props;
+        // IF, patternCounter AND inputCounter are equal, compare patterns.
+        if (patternCounter === inputCounter) {
+            switch (patternDirection) {
+                case true:
+                    break;
+                case false:
+                    break;
+            }
+        }
+    };
+
+    // Function to compare two arrays that have been passed in. Should return true or false.
+    compareTwoArrays = (arr1, arr2) => {
+        console.log(`Comparing two arrays...`);
     };
 
     gameLoop = () => {

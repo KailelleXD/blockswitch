@@ -5,12 +5,12 @@ const INITIAL_STATE = {
     userInputLog: []
 };
 
-consoleLogProcess = action => {
+consoleLogProcess = (action, value) => {
     const displayConsoleLogs = INITIAL_STATE[Object.keys(INITIAL_STATE)[0]];
     if (displayConsoleLogs) {
         console.log(
             `${action.type}: (${
-                action.payload || !action.payload ? action.payload : ""
+                action.payload ? action.payload : value
             })`
         );
     }
