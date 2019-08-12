@@ -9,6 +9,9 @@ import {
     highlightBottomBlock,
     highlightLeftBlock,
     highlightCenterBlock,
+    addToInputPatternArray,
+    incrementInputCounter,
+    clearInputPatternArray,
     addToPatternArray,
     setDisplayPatternActive,
     setPatternDirection
@@ -21,11 +24,15 @@ class GameLogicContainer extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { consoleLogPatternInfo: false };
+        this.state = { consoleLogPatternInfo: true };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return this.props.forwardPatternArray != nextProps.forwardPatternArray;
+        return (
+            this.props.forwardPatternArray != nextProps.forwardPatternArray ||
+            this.props.inputPatternArray != nextProps.inputPatternArray ||
+            this.props.userInputActive != nextProps.userInputActive
+        );
     }
 
     componentDidUpdate() {
@@ -33,8 +40,8 @@ class GameLogicContainer extends Component {
             this.props.patternDirection
                 ? this.renderPatternToCross(this.props.forwardPatternArray)
                 : this.renderPatternToCross(this.props.reversePatternArray);
-            this.consoleLogPatternInfo();
         }
+        this.consoleLogPatternInfo();
     }
 
     // DEVELOPER FUNCTIONS ////
@@ -43,10 +50,19 @@ class GameLogicContainer extends Component {
         const {
             patternDirection,
             forwardPatternArray,
-            reversePatternArray
+            reversePatternArray,
+            inputPatternArray,
+            inputCounter,
+            patternCounter,
+            userInputActive
         } = this.props;
-        if (this.state.consoleLogPatternInfo) {
+
+        if (this.state.consoleLogPatternInfo && userInputActive) {
             console.log(`---`);
+            console.log(`  inputCounter: ${inputCounter}`);
+            console.log(`  inputPatternArray: [${inputPatternArray}]`);
+            console.log(`===`);
+            console.log(`  patternCounter: ${patternCounter}`);
             console.log(
                 `${
                     patternDirection ? "> " : "  "
@@ -142,18 +158,44 @@ class GameLogicContainer extends Component {
 
     // function to pass in as props and return type and value from the component that the user pressed.
     handlePress = value => {
+        const {
+            forwardPatternArray,
+            reversePatternArray,
+            inputPatternArray,
+            patternCounter,
+            inputCounter
+        } = this.props;
+
+        // IF, patternCounter AND inputCounter are equal, compare patterns.
+        if (patternCounter === inputCounter) {
+            this.comparePatterns(
+                forwardPatternArray,
+                reversePatternArray,
+                inputPatternArray
+            );
+        }
+
         // The following function is used to console log user input to help debug.
-        this.userInputLogger(value);
+        this.inputLogger(value);
         this.highlightBlock(value);
     };
 
-    // Function to log all user input for debugging and developer screen.
-    userInputLogger = value => {
+    // Function to log all user input to devReducer and gameStateReducer.
+    inputLogger = value => {
         this.props.addToInputLogger(value);
+        this.props.addToInputPatternArray(value);
+        this.props.incrementInputCounter();
+    };
+
+    comparePatterns = (forward, reverse, input) => {
+        console.log(`Comparing Patterns...`);
     };
 
     gameLoop = () => {
         if (!this.props.displayPatternActive && !this.props.userInputActive) {
+            // clears inputPatternArray (should be moved to section of code that sets userInputActive to TRUE)
+            this.props.clearInputPatternArray();
+
             const randomNumber = this.getRandomInt(1, 5);
             const whichDirection = this.getRandomInt(1, 2);
 
@@ -227,6 +269,9 @@ const mapStateToProps = state => {
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
+        addToInputPatternArray,
+        incrementInputCounter,
+        clearInputPatternArray,
         addToPatternArray,
         setDisplayPatternActive,
         setPatternDirection
@@ -235,10 +280,14 @@ const mapStateToProps = state => {
     // console.log(state.gameState);
 
     return {
+        inputPatternArray: state.gameState.inputPatternArray,
+        inputCounter: state.gameState.inputCounter,
         forwardPatternArray: state.gameState.forwardPatternArray,
         reversePatternArray: state.gameState.reversePatternArray,
+        patternCounter: state.gameState.patternCounter,
         patternDirection: state.gameState.patternDirection,
         displayPatternActive: state.gameState.displayPatternActive,
+        userInputActive: state.gameState.userInputActive,
         blockState: state.display.blockState,
         addToInputLogger,
         highlightTopBlock,
@@ -246,6 +295,9 @@ const mapStateToProps = state => {
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
+        addToInputPatternArray,
+        incrementInputCounter,
+        clearInputPatternArray,
         addToPatternArray,
         setDisplayPatternActive,
         setPatternDirection
@@ -263,6 +315,9 @@ export default connect(
         highlightBottomBlock,
         highlightLeftBlock,
         highlightCenterBlock,
+        addToInputPatternArray,
+        incrementInputCounter,
+        clearInputPatternArray,
         addToPatternArray,
         setDisplayPatternActive,
         setPatternDirection

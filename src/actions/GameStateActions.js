@@ -1,6 +1,9 @@
 import {
     RESET_GAME,
     ADD_TO_PATTERN_ARRAY,
+    ADD_TO_INPUT_PATTERN_ARRAY,
+    INCREMENT_INPUT_COUNTER,
+    CLEAR_INPUT_PATTERN_ARRAY,
     CLEAR_PATTERNS,
     SET_DISPLAY_PATTERN_ACTIVE,
     SET_PATTERN_DIRECTION,
@@ -29,6 +32,31 @@ export const addToPatternArray = value => {
     return {
         type: ADD_TO_PATTERN_ARRAY,
         payload: value
+    };
+};
+
+// ADD_TO_INPUT_PATTERN_ARRAY ////
+export const addToInputPatternArray = value => {
+    // console.log(`ADD_TO_INPUT_PATTERN_ARRAY action called!`);
+    return {
+        type: ADD_TO_INPUT_PATTERN_ARRAY,
+        payload: value
+    };
+};
+
+// INCREMENT_INPUT_COUNTER ////
+export const incrementInputCounter = () => {
+    // console.log(`INCREMENT_INPUT_COUNTER action called!`);
+    return {
+        type: INCREMENT_INPUT_COUNTER
+    };
+};
+
+// CLEAR_INPUT_PATTERN_ARRAY ////
+export const clearInputPatternArray = () => {
+    // console.log(`CLEAR_INPUT_PATTERN_ARRAY action called!`);
+    return {
+        type: CLEAR_INPUT_PATTERN_ARRAY
     };
 };
 
