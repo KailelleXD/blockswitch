@@ -11,7 +11,7 @@ import {
 } from "../actions/types";
 
 const INITIAL_STATE = {
-    displayConsoleLogs: true, //toggle to display console logs.
+    displayConsoleLogs: false, //toggle to display console logs.
     forwardPatternArray: [],
     reversePatternArray: [],
     patternCounter: 0,

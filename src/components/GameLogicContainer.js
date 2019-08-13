@@ -55,8 +55,7 @@ class GameLogicContainer extends Component {
             reversePatternArray,
             inputPatternArray,
             inputCounter,
-            patternCounter,
-            userInputActive
+            patternCounter
         } = this.props;
 
         if (this.state.consoleLogPatternInfo) {
@@ -170,7 +169,7 @@ class GameLogicContainer extends Component {
 
         try {
             await incrementInputCounter();
-            await addToInputPatternArray(value);
+            addToInputPatternArray(value);
             addToInputLogger(value);
             this.compareWhichPatterns(
                 forwardPatternArray,
