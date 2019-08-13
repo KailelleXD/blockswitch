@@ -89,7 +89,8 @@ export default (state = INITIAL_STATE, action) => {
             ];
             return {
                 ...state,
-                inputPatternArray: updatedInputPattern
+                inputPatternArray: updatedInputPattern,
+                inputCounter: updatedInputPattern.length
             };
         case SET_DISPLAY_PATTERN_ACTIVE:
             this.consoleLogProcess(action);

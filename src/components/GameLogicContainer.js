@@ -30,10 +30,7 @@ class GameLogicContainer extends Component {
     shouldComponentUpdate(nextProps, nextState) {
         return (
             this.props.forwardPatternArray != nextProps.forwardPatternArray ||
-            this.props.inputPatternArray != nextProps.inputPatternArray ||
-            this.props.userInputActive != nextProps.userInputActive ||
-            this.props.patternCounter != nextProps.patternCounter ||
-            this.props.inputCounter != nextProps.inputCounter
+            this.props.inputPatternArray != nextProps.inputPatternArray
         );
     }
 
@@ -44,6 +41,20 @@ class GameLogicContainer extends Component {
                 : this.renderPatternToCross(this.props.reversePatternArray);
         }
         this.consoleLogPatternInfo();
+
+        const {
+            forwardPatternArray,
+            reversePatternArray,
+            inputPatternArray
+        } = this.props;
+
+        if (inputPatternArray.length !== 0) {
+            this.compareWhichPatterns(
+                forwardPatternArray,
+                reversePatternArray,
+                inputPatternArray
+            );
+        }
     }
 
     // DEVELOPER FUNCTIONS ////
@@ -155,66 +166,48 @@ class GameLogicContainer extends Component {
         }
     };
 
-    // ASYNC FUNCTIONS ////
-
-    initialize = async value => {
-        const {
-            addToInputLogger,
-            addToInputPatternArray,
-            incrementInputCounter,
-            forwardPatternArray,
-            reversePatternArray,
-            inputPatternArray
-        } = this.props;
-
-        try {
-            await incrementInputCounter();
-            addToInputPatternArray(value);
-            addToInputLogger(value);
-            this.compareWhichPatterns(
-                forwardPatternArray,
-                reversePatternArray,
-                inputPatternArray
-            );
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
     // HELPER FUNCTIONS ////
 
     // function to pass in as props and return type and value from the component that the user pressed.
     handlePress = value => {
+        const { addToInputPatternArray } = this.props;
+
+        addToInputPatternArray(value);
+        this.highlightBlock(value);
+
         // The following function is used to console log user input to help debug.
         this.inputLogger(value);
-        this.highlightBlock(value);
     };
 
     // Function to log all user input to devReducer and gameStateReducer.
     inputLogger = value => {
-        this.initialize(value);
+        this.props.addToInputLogger(value);
     };
 
     // Function to check patternDirection and call the comparePattern function with correct values passed in.
     compareWhichPatterns = (forward, reverse, input) => {
-        console.log(`forward:${forward}`);
-        console.log(`reverse:${reverse}`);
-        console.log(`input:${input}`);
-        const { patternDirection, patternCounter, inputCounter } = this.props;
+        const { patternDirection, inputCounter } = this.props;
         // IF, patternCounter AND inputCounter are equal, compare patterns.
-        if (patternCounter === inputCounter) {
-            switch (patternDirection) {
-                case true:
-                    break;
-                case false:
-                    break;
-            }
+        switch (patternDirection) {
+            case true:
+                this.compareTwoArrays(forward, input, inputCounter - 1);
+                break;
+            case false:
+                this.compareTwoArrays(reverse, input, inputCounter - 1);
+                break;
         }
     };
 
     // Function to compare two arrays that have been passed in. Should return true or false.
-    compareTwoArrays = (arr1, arr2) => {
-        console.log(`Comparing two arrays...`);
+    compareTwoArrays = (arr1, arr2, i) => {
+        console.log(`index: ${i}`);
+        console.log(`arr1: ${arr1[i]}`);
+        console.log(`arr2: ${arr2[i]}`);
+        if (arr1[i] === arr2[i]) {
+            console.log(`The Patterns Match!`);
+        } else {
+            console.log(`The Patterns DO NOT Match...`);
+        }
     };
 
     gameLoop = () => {
@@ -303,7 +296,7 @@ const mapStateToProps = state => {
         setPatternDirection
     } = state;
 
-    // console.log(state.gameState);
+    // console.log(state.gameState.inputPatternArray);
 
     return {
         inputPatternArray: state.gameState.inputPatternArray,
