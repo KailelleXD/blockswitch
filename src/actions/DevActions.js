@@ -9,7 +9,7 @@ export const addToInputLogger = value => {
     };
 };
 
-// CLEAR_HISTORY ////
+// CLEAR_USER_LOGS ////
 export const clearUserLogs = () => {
     // console.log(`CLEAR_HISTORY action called!`);
     return {

@@ -1,6 +1,9 @@
 import {
     RESET_GAME,
     ADD_TO_PATTERN_ARRAY,
+    ADD_TO_INPUT_PATTERN_ARRAY,
+    INCREMENT_INPUT_COUNTER,
+    CLEAR_INPUT_PATTERN_ARRAY,
     CLEAR_PATTERNS,
     SET_DISPLAY_PATTERN_ACTIVE,
     SET_PATTERN_DIRECTION,
@@ -11,18 +14,19 @@ const INITIAL_STATE = {
     displayConsoleLogs: false, //toggle to display console logs.
     forwardPatternArray: [],
     reversePatternArray: [],
+    patternCounter: 0,
+    inputPatternArray: [],
+    inputCounter: 0,
     patternDirection: true,
     displayPatternActive: false,
     userInputActive: false
 };
 
-consoleLogProcess = action => {
+consoleLogProcess = (action, value) => {
     const displayConsoleLogs = INITIAL_STATE[Object.keys(INITIAL_STATE)[0]];
     if (displayConsoleLogs) {
         console.log(
-            `${action.type}: (${
-                action.payload || !action.payload ? action.payload : ""
-            })`
+            `${action.type}: (${action.payload ? action.payload : value})`
         );
     }
 }; //consoleLogProcess(action);
@@ -34,14 +38,18 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 patternDirection: true,
-                displayPatternActive: false
+                displayPatternActive: false,
+                userInputActive: false
             };
         case CLEAR_PATTERNS:
             this.consoleLogProcess(action);
             return {
                 ...state,
                 forwardPatternArray: [],
-                reversePatternArray: []
+                reversePatternArray: [],
+                inputPatternArray: [],
+                inputCounter: 0,
+                PatternCounter: 0
             };
         case ADD_TO_PATTERN_ARRAY:
             this.consoleLogProcess(action);
@@ -59,9 +67,31 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 forwardPatternArray: updatedForwardPatternArray,
-                reversePatternArray: updatedReversePatternArray
+                reversePatternArray: updatedReversePatternArray,
+                patternCounter: updatedForwardPatternArray.length
             };
-
+        case INCREMENT_INPUT_COUNTER:
+            let updatedInputCount = state.inputCounter;
+            updatedInputCount++;
+            this.consoleLogProcess(action, updatedInputCount);
+            return {
+                ...state,
+                inputCounter: updatedInputCount
+            };
+        case CLEAR_INPUT_PATTERN_ARRAY:
+            consoleLogProcess(action);
+            return { ...state, inputPatternArray: [], inputCounter: 0 };
+        case ADD_TO_INPUT_PATTERN_ARRAY:
+            consoleLogProcess(action);
+            const updatedInputPattern = [
+                ...state.inputPatternArray,
+                action.payload
+            ];
+            return {
+                ...state,
+                inputPatternArray: updatedInputPattern,
+                inputCounter: updatedInputPattern.length
+            };
         case SET_DISPLAY_PATTERN_ACTIVE:
             this.consoleLogProcess(action);
             return {
